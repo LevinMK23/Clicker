@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Clicker</string>
+    <string name="num_value">0</string>
+    <string name="click_me">CLICK ME!</string>
+</resources>
