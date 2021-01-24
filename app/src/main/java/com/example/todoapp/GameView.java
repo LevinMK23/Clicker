@@ -31,7 +31,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         // start thread
-        //thread.start();
+        thread.start();
     }
 
     @Override
@@ -42,25 +42,25 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         // stop thread
-//        thread.setRunning(false);
-//        while (thread.isAlive()) {
-//            try {
-//                TimeUnit.MILLISECONDS.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        thread.setRunning(false);
+        while (thread.isAlive()) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        //thread.addCircle(new Circle(60, 60, 60, holder.getSurfaceFrame()));
-        synchronized (holder) {
-            Canvas canvas = holder.lockCanvas();
-            canvas.drawColor(Color.WHITE);
-            canvas.drawCircle(event.getX(), event.getY(), 60, paint);
-            holder.unlockCanvasAndPost(canvas);
-        }
-        return true;
+        thread.addCircle(new Circle(60, 60, 60, holder.getSurfaceFrame()));
+//        synchronized (holder) {
+//            Canvas canvas = holder.lockCanvas();
+//            canvas.drawColor(Color.WHITE);
+//            canvas.drawCircle(event.getX(), event.getY(), 60, paint);
+//            holder.unlockCanvasAndPost(canvas);
+//        }
+        return false;
     }
 }

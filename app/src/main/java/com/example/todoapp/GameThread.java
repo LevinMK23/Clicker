@@ -49,18 +49,19 @@ public class GameThread extends Thread {
         }
     }
 
-    private boolean needReverce(Circle c1, Circle c2) {
-        return Math.sqrt((c1.getCx() - c2.getCx()) * (c1.getCx() - c2.getCx()) +
-                (c1.getCy() - c2.getCy()) * (c1.getCy() - c2.getCy())) <= c2.getRadius() + c1.getRadius();
+    private boolean needReverse(Circle c1, Circle c2) {
+        return Math.sqrt(
+                (c1.getCx() - c2.getCx()) * (c1.getCx() - c2.getCx()) +
+                        (c1.getCy() - c2.getCy()) * (c1.getCy() - c2.getCy())
+        ) <= c2.getRadius() + c1.getRadius();
     }
 
     private void drawAndUpdate(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
         for (Circle circle : circles) {
             for (Circle other : circles) {
-                if (needReverce(circle, other)) {
-                    circle.reverce();
-                    other.reverce();
+                if (!circle.equals(other) && needReverse(circle, other)) {
+                    circle.processReverse(other);
                 }
             }
             canvas.drawCircle(circle.getCx(), circle.getCy(), circle.getRadius(), paint);

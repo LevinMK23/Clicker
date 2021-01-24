@@ -2,6 +2,9 @@ package com.example.todoapp;
 
 import android.graphics.Rect;
 
+import static java.lang.Math.floor;
+import static java.lang.Math.sqrt;
+
 public class Circle {
 
     private float cx;
@@ -19,12 +22,17 @@ public class Circle {
         this.window = window;
         speed = 10;
         dx = (float) (Math.random() * 10);
-        dy = (float) Math.sqrt(100 - dx * dx);
+        dy = (float) sqrt(100 - dx * dx);
     }
 
-    public void reverce() {
-        dx *= -1;
-        dy *= -1;
+    public void processReverse(Circle other) {
+        float vx = cx - other.cx;
+        float vy = cy - other.cy;
+        float diff = (float) (10 / sqrt(vx * vx + vy * vy));
+        dx = vx * diff;
+        dy = vy * diff;
+        other.dx = vx * diff * -1;
+        other.dy = vy * diff * -1;
     }
 
     public void update() {
